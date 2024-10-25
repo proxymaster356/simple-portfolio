@@ -1,0 +1,257 @@
+<!DOCTYPE html><html><head><base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debopam Dutta - Projects</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;700&display=swap');
+
+    :root {
+      --primary-color: #6200ea;
+      --secondary-color: #00bcd4;
+      --accent-color: #ff4081;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #141E30, #243B55, #0F2027, #203A43);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .nav-container {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: 0 1rem;
+    }
+
+    .nav-button {
+      position: relative;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      color: white;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-button::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-button:hover::after {
+      width: 100%;
+    }
+
+    .nav-button:hover {
+      color: var(--secondary-color);
+    }
+
+    .projects-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-title {
+      font-size: 1.8rem;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+
+    .project-date {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 1rem;
+    }
+
+    .project-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tag {
+      background: rgba(0, 188, 212, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-link {
+      padding: 0.8rem 1.5rem;
+      border: 1px solid var(--secondary-color);
+      border-radius: 25px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .project-link:hover {
+      background: var(--secondary-color);
+      color: black;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--secondary-color);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .projects-container {
+        padding: 1rem;
+      }
+      
+      .project-title {
+        font-size: 1.5rem;
+      }
+      
+      .project-description {
+        font-size: 1rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="nav-container">
+    <div class="nav-buttons">
+  <button class="nav-button" onclick="window.location.href='websites/index.html'">
+    <i class="fas fa-home"></i> Home
+  </button>
+</div>
+  </nav>
+
+  <div class="projects-container">
+    <h1 class="section-title">My Projects</h1>
+
+    <div class="project-card">
+      <h2 class="project-title">Design Thinking Arduino Group Project</h2>
+      <p class="project-date"><i class="far fa-calendar-alt"></i> July 2024 - Present</p>
+      <p class="project-description">
+  Led a team of 5 students in developing innovative Arduino-based solutions using design thinking methodology. 
+  Implemented multiple prototypes including an automated plant watering system, smart room lighting, and 
+  motion-controlled security system. Successfully delivered working prototypes the fisihing work is going on.
+</p>
+      <div class="project-tags">
+  <span class="project-tag">Arduino</span>
+  <span class="project-tag">Design Thinking</span>
+  <span class="project-tag">IoT</span>
+</div>
+      <div class="project-links">
+</div>
+    </div>
+
+    <div></div>
+
+    <div></div>
+
+    <div class="project-card">
+  <h2 class="project-title">Electric Wheelchair Project</h2>
+  <p class="project-date"><i class="far fa-calendar-alt"></i> Class 12 2021-22</p>
+  <p class="project-description">
+    Collaborated with classmates to design and build an electric wheelchair with enhanced navigation features.
+    The project focused on creating an affordable and user-friendly mobility solution. Key achievements include:
+    - Implemented joystick-controlled navigation system
+    - Added LED indicators for battery status and turning signals
+    - Incorporated emergency stop functionality
+    - Achieved a maximum speed of 5 km/h with smooth acceleration control
+    - Successfully demonstrated the prototype at school science exhibition
+  </p>
+  <div class="project-tags">
+    <span class="project-tag">Electronics</span>
+    <span class="project-tag">Motor Control</span>
+    <span class="project-tag">Assistive Technology</span>
+    <span class="project-tag">Arduino</span>
+  </div>
+  <div></div>
+  <div class="navigation-buttons" style="margin-top: 1rem; display: flex; gap: 1rem;">
+    <button></button>
+    <button></button>
+  </div>
+</div>
+  </div>
+
+  <script>
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body></html>

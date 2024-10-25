@@ -1,0 +1,208 @@
+<html><head><base href="/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posters - Debopam Dutta</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;700&display=swap');
+
+  :root {
+    --primary-color: #6200ea;
+    --secondary-color: #00bcd4;
+    --accent-color: #ff4081;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #141E30, #243B55, #0F2027, #203A43);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white;
+    min-height: 100vh;
+    padding-top: 80px;
+  }
+
+  .nav-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+
+  .nav-button {
+    position: relative;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--secondary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-button:hover::after {
+    width: 100%;
+  }
+
+  .nav-button:hover {
+    color: var(--secondary-color);
+  }
+
+  .posters-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+
+  .posters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .poster-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .poster-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .poster-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .poster-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+  }
+
+  .poster-description {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+  }
+
+  .poster-details {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .poster-date {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+  }
+
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .posters-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <nav class="nav-container">
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="window.location.href='websites/index.html'">
+        <i class="fas fa-home"></i> Home
+      </button>
+    </div>
+  </nav>
+
+  <div class="posters-container">
+    <h1 class="section-title">Scientific and Nonscientific Posters</h1>
+    
+    <div class="posters-grid">
+      <div class="poster-card">
+        <img src="websites/photography/number1.jpg" class="poster-image" width="600" height="400">
+        <h3 class="poster-title">Ai power genomics: Future of Drug Discoverry</h3>
+        <p class="poster-description">
+          A comprehensive visual guide explaining the CRISPR-Cas9 and AI gene editing mechanism and its applications in modern Biotechnology and Drug Discovery.
+        </p>
+        
+        <div class="poster-details">
+          <span class="poster-date">Presented at UEM Kolkata</span>
+        </div>
+      </a>
+      </div>
+
+      <div class="poster-card">
+        <img src="websites/photography/final 2.jpg" class="poster-image" width="600" height="400">
+        <h3 class="poster-title">Flyer Competion</h3>
+        <p class="poster-description">
+          A flyer Competion organsied by UEM Kolkata. 
+        </p>
+        <div class="poster-details">
+          <span class="poster-date">Flyer Fution 2024</span>
+        </div>
+      </div>
+
+      <div class="poster-card">
+        <img src="websites/photography/WhatsApp Image 2024-09-14 at 23.36.02_5fff57b3.jpg" class="poster-image" width="600" height="400">
+        <h3 class="poster-title">SnapWalk 3.0</h3>
+        <p class="poster-description">
+          A poster for SnapWalk 3.0 organsied by Iris offical photography club of UEMK
+        </p>
+        <div class="poster-details">
+          <span class="poster-date">September 2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body></html>

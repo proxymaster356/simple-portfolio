@@ -1,0 +1,288 @@
+<!DOCTYPE html><html><head><base href="/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debopam Dutta - Education</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;700&display=swap');
+
+  :root {
+    --primary-color: #6200ea;
+    --secondary-color: #00bcd4;
+    --accent-color: #ff4081;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(-45deg, #141E30, #243B55, #0F2027, #203A43);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+  }
+  
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .nav-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+
+  .nav-button {
+    position: relative;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--secondary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-button:hover::after {
+    width: 100%;
+  }
+
+  .nav-button:hover {
+    color: var(--secondary-color);
+  }
+
+  .education-container {
+    max-width: 1200px;
+    margin: 100px auto 50px;
+    padding: 2rem;
+  }
+
+  .education-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+
+  .timeline {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--secondary-color);
+  }
+
+  .timeline-item {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50%;
+    position: relative;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slideIn 0.5s forwards;
+  }
+
+  .timeline-item:nth-child(even) {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: 50%;
+    transform: translateX(50px);
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .timeline-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    width: 80%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .timeline-content:hover {
+    transform: scale(1.02);
+  }
+
+  .timeline-date {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+  }
+
+  .timeline-institution {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 0;
+    }
+    
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+      padding-right: 0;
+      padding-left: 30px;
+      justify-content: flex-start;
+    }
+
+    .timeline-dot {
+      left: 0;
+    }
+
+    .timeline-content {
+      width: 100%;
+    }
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="nav-container">
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="window.location.href='websites/index.html'">
+        <i class="fas fa-home"></i> Home
+      </button>
+      </button>
+    </div>
+  </nav>
+
+  <div class="education-container">
+    <h1 class="education-title">Education Journey</h1>
+    
+    <div class="timeline">
+      <div class="timeline-item" style="animation-delay: 0.2s;">
+        <div class="timeline-content">
+          <div class="timeline-date">2024 - Present</div>
+          <h3 class="timeline-title">B.Tech in Biotechnology Engineering</h3>
+          <div class="timeline-institution">University of Engineering &amp; Management Kolkata</div>
+          <p class="timeline-description">
+  Pursuing advanced studies in Biotechnology Engineering with focus on genetic engineering, 
+  bioprocess technology, and computational biology. Maintaining a strong academic record while 
+  participating in various technical projects and research activities. Additionally, started 
+  exploring coding and graphics designing skills, learning various programming languages and 
+  design tools to complement biotechnology studies with technical expertise.
+</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-item" style="animation-delay: 0.4s;">
+        <div class="timeline-content">
+          <div class="timeline-date">2020-2022</div>
+          <h3 class="timeline-title">Higher Secondary Education (Class XII)</h3>
+          <div class="timeline-institution">Subhaspalli Vidyaniketan (H.S.), Burnpur, Asansol</div>
+          <p class="timeline-description">
+            Completed Higher Secondary with focus on Physics, Chemistry, and Biology. 
+            Achieved excellent academic performance while participating in various 
+            extracurricular activities and science exhibitions.
+          </p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-item" style="animation-delay: 0.6s;">
+        <div class="timeline-content">
+  <div class="timeline-date">2020</div>
+  <h3 class="timeline-title">Secondary Education (Class X)</h3>
+  <div class="timeline-institution">Subhaspalli Vidyaniketan (H.S.), Burnpur, Asansol</div>
+  <p class="timeline-description">
+    Completed Secondary Education with distinction, achieving Grade A+ with 88% marks. Active participant in school's 
+    science club and various academic competitions. Developed strong foundation in 
+    sciences and mathematics. Participated in bioscience projects and exhibitions,
+    demonstrated artistic skills through scientific drawings and diagrams. Regular
+    participant in science quizzes and inter-school competitions, securing top positions
+    in biology and general science categories.
+  </p>
+</div>
+        <div class="timeline-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = `slideIn 0.5s forwards ${entry.target.dataset.delay}`;
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        observer.observe(item);
+      });
+    });
+  </script>
+</body></html>
