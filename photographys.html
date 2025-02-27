@@ -63,17 +63,19 @@
   }
 
   .photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+    column-count: 3;
+    column-gap: 1rem;
     padding: 2rem;
   }
 
   .photo-item {
     position: relative;
+    margin-bottom: 1rem;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    width: 100%;
   }
 
   .photo-item img {
@@ -103,6 +105,18 @@
 
   .photo-item:hover .photo-overlay {
     opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .photo-gallery {
+      column-count: 2;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .photo-gallery {
+      column-count: 1;
+    }
   }
 </style>
 </head>
