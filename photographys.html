@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head><base>
+<!DOCTYPE html>
+<html>
+<head>
+<base>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Debopam Dutta - Photography</title>
@@ -19,16 +22,18 @@
 
   body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(-45deg, #141E30, #243B55, #0F2027, #203A43);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    background: linear-gradient(-45deg, #141E30, #243B55, #0F2027, #203A43, #2C5364, #0F3460);
+    background-size: 600% 600%;
+    animation: gradientBG 12s ease-in-out infinite;
     color: white;
     min-height: 100vh;
   }
 
   @keyframes gradientBG {
     0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
     100% { background-position: 0% 50%; }
   }
 
@@ -83,27 +88,16 @@
     color: var(--secondary-color);
   }
 
-  .hero {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .main-content {
+    padding-top: 100px;
     min-height: 100vh;
-    padding: 2rem;
+  }
+
+  .hero-section {
     text-align: center;
-  }
-
-  .hero-content {
+    padding: 4rem 2rem 2rem;
     max-width: 800px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1s ease forwards;
-  }
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    margin: 0 auto;
   }
 
   .hero-title {
@@ -113,100 +107,268 @@
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     letter-spacing: 3px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 0.3s forwards;
   }
 
   .hero-text {
     font-size: 1.1rem;
     line-height: 1.6;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     color: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 0.6s forwards;
   }
 
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Pinterest-style Masonry Layout */
   .photo-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 2rem 0;
-  }
-
-  .photo-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
-  }
-
-  .photo-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-.photo-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem 1.5rem;
-  background: rgba(0, 0, 0, 0.4); /* Softer background */
-  color: #fff;
-  opacity: 0;
-  transform: translateY(100%);
-  transition: all 0.4s ease;
-  border-radius: 0 0 15px 15px;
-  backdrop-filter: blur(4px); /* Subtle glass effect */
-}
-
-.photo-item:hover .photo-overlay {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.photo-overlay h3 {
-  margin-bottom: 0.4rem;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--accent-color); /* Stylish highlight */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-}
-
-.photo-overlay p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-
-  .photo-item:hover {
-    transform: translateY(-5px);
-  }
-
-  .photo-item:hover .photo-overlay {
-    bottom: 0;
-  }
-
-  .photo-item:hover img {
-    transform: scale(1.05);
-  }
-
-  .photo-overlay h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-  }
-
-  .photo-overlay p {
-    font-size: 0.9rem;
-    opacity: 0.8;
+    gap: 20px;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
   @media (max-width: 768px) {
     .photo-gallery {
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
+      gap: 15px;
+      padding: 1rem;
     }
+  }
+
+  @media (max-width: 480px) {
+    .photo-gallery {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+  }
+
+  .photo-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideInUp 0.6s ease forwards;
+  }
+
+  .photo-item:nth-child(1) { animation-delay: 0.1s; }
+  .photo-item:nth-child(2) { animation-delay: 0.2s; }
+  .photo-item:nth-child(3) { animation-delay: 0.3s; }
+  .photo-item:nth-child(4) { animation-delay: 0.4s; }
+  .photo-item:nth-child(5) { animation-delay: 0.5s; }
+  .photo-item:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .photo-item:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    z-index: 10;
+  }
+
+  /* Lazy loading placeholder */
+  .photo-placeholder {
+    width: 100%;
+    background: linear-gradient(135deg, 
+      rgba(98, 0, 234, 0.2), 
+      rgba(0, 188, 212, 0.2), 
+      rgba(255, 64, 129, 0.2)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    min-height: 250px;
+  }
+
+  .photo-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255,255,255,0.2), 
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    opacity: 0;
+  }
+
+  .photo-item img.loaded {
+    opacity: 1;
+  }
+
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.4); /* Softer background */
+    color: #fff;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.4s ease;
+    border-radius: 0 0 15px 15px;
+    backdrop-filter: blur(4px); /* Subtle glass effect */
+}
+
+.photo-item:hover .photo-overlay {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.photo-overlay h3 {
+    margin-bottom: 0.4rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--accent-color); /* Stylish highlight */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.photo-overlay p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+  .load-more-container {
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .load-more {
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(98, 0, 234, 0.3);
+  }
+
+  .load-more:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(98, 0, 234, 0.4);
+  }
+
+  .load-more:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90vw;
+    max-height: 90vh;
+    animation: zoomIn 0.3s ease;
+  }
+
+  @keyframes zoomIn {
+    from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
+
+  .modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.7);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2001;
+  }
+
+  .modal-close:hover {
+    color: var(--secondary-color);
+    transform: scale(1.1);
   }
 
   .particles {
@@ -218,234 +380,331 @@
     z-index: -1;
     pointer-events: none;
   }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .modal-close {
+      top: 10px;
+      right: 20px;
+      font-size: 35px;
+    }
+  }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <body>
-    <nav class="nav-container">
-      <div class="nav-buttons">
-        <button class="nav-button" onclick="window.location.href='./index.html'">
-          <i class="fas fa-home"></i> Home
-          </button>
-          </button>
-        </button>
-      </div>
-      <style>
-        .nav-buttons {
-          justify-content: flex-end;
-          position: relative;
-        }
-
-        .menu-toggle {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          z-index: 1001;
-        }
-
-        .menu-content {
-          display: none;
-          position: absolute;
-          top: 100%;
-          right: 0;
-          background: rgba(0, 0, 0, 0.9);
-          backdrop-filter: blur(10px);
-          padding: 1rem;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          flex-direction: column;
-          gap: 0.5rem;
-          min-width: 200px;
-          z-index: 1000;
-        }
-
-        .menu-content.active {
-          display: flex;
-        }
-
-        .menu-content .nav-button {
-          width: 100%;
-          text-align: left;
-          padding: 0.8rem 1rem;
-          display: flex;
-          align-items: center;
-          gap: 0.8rem;
-        }
-
-        @media (max-width: 768px) {
-          .menu-content {
-            width: 100%;
-            border-radius: 0;
-          }
-        }
-      </style>
-      <script>
-        function toggleMenu() {
-          const menuContent = document.getElementById('menuContent');
-          menuContent.classList.toggle('active');
-        }
-
-        document.addEventListener('click', (e) => {
-          const menuContent = document.getElementById('menuContent');
-          const menuToggle = document.getElementById('menuToggle');
-          if (!menuToggle.contains(e.target) && !menuContent.contains(e.target)) {
-            menuContent.classList.remove('active');
-          }
-        });
-      </script>
+  <nav class="nav-container">
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="window.location.href='./index.html'">
+        <i class="fas fa-home"></i> Home
+      </button>
     </div>
   </nav>
 
-  <div class="hero">
-    <div class="hero-content" style="margin: 4rem auto; padding: 2rem;">
+  <div class="main-content">
+    <section class="hero-section">
       <h1 class="hero-title">Photography</h1>
       <p class="hero-text">Exploring the world through my lens. Here's a collection of my favorite photographs capturing moments, places, and stories.</p>
-      
-      <div class="photo-gallery" style="grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); padding: 4rem;">
-  <div class="photo-item">
-    <img src="./photography/DSC_1528.JPG" alt="Serene mountain landscape at sunset" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>Mountain Majesty</h3>
-      <p>KATAO, NORTH Sikkim</p>
+    </section>
+
+    <div class="photo-gallery" id="photoGallery">
+      <!-- Photos will be dynamically loaded here -->
+    </div>
+
+    <div class="load-more-container">
+      <button class="load-more" id="loadMoreBtn">
+        <i class="fas fa-images"></i> Load More Photos
+      </button>
     </div>
   </div>
 
-  <div class="photo-item">
-    <img src="./photography/IMG_20231026_132139.jpg" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>TIBITAIAN CULTURE</h3>
-      <p>Tawang , Arunachal Pradesh</p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/SAVE_20240807_201313.jpg" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>Cherry blossom </h3>
-      <p>Pelling , Sikkim</p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/IMG_20231028_103505.jpg" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>The Majestic Waterfall</h3>
-      <p>Jung Falls, Tawang, Arunachal Pradesh</p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/IMG_20231025_141032.jpg" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>Heaven's Light in the Highlands</h3>
-      <p>SomeWhere in Arunachal Pradesh</p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/IMG_20240814_225827.jpg" alt="Vibrant festival celebration with colors" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>The night of Independence</h3>
-      <p>Asansol , West Bengal</p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/SAVE_20201127_223702.jpg"  width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>Resting in Shadows</h3>
-      <p>Macro study of species Insecta</p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/IMG_20210327_232547-EDIT.jpg" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>The Burning Flames</h3>
-      <p></p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/IMG_20210905_213211.jpg" width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>নীলাম্বরের ক্ষিদে</h3>
-      <p>Nilaambor er Khide: The Unseen Hunger</p>
-    </div>
-  </div>
-
-  <div class="photo-item">
-    <img src="./photography/IMG_20231024_121128.jpg"  width="1200" height="900">
-    <div class="photo-overlay">
-      <h3>The River Bunks</h3>
-      <p>Arunachal Pradesh</p>
-    </div>
-  </div>
-</div>
+  <!-- Image Modal -->
+  <div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="">
     </div>
   </div>
 
   <canvas class="particles"></canvas>
 
   <script>
-    const canvas = document.querySelector('.particles');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2;
-        this.speedX = Math.random() * 2 - 1;
-        this.speedY = Math.random() * 2 - 1;
+    // Photo data with realistic aspect ratios for Pinterest-style layout
+    const photoData = [
+      {
+        src: "./photography/DSC_1528.JPG",
+        title: "Mountain Majesty",
+        description: "KATAO, NORTH Sikkim",
+        aspectRatio: 1.33
+      },
+      {
+        src: "./photography/IMG_20231026_132139.jpg",
+        title: "TIBETAN CULTURE",
+        description: "Tawang, Arunachal Pradesh",
+        aspectRatio: 0.75
+      },
+      {
+        src: "./photography/SAVE_20240807_201313.jpg",
+        title: "Cherry Blossom",
+        description: "Pelling, Sikkim",
+        aspectRatio: 1.2
+      },
+      {
+        src: "./photography/IMG_20231028_103505.jpg",
+        title: "The Majestic Waterfall",
+        description: "Jung Falls, Tawang, Arunachal Pradesh",
+        aspectRatio: 0.8
+      },
+      {
+        src: "./photography/IMG_20231025_141032.jpg",
+        title: "Heaven's Light in the Highlands",
+        description: "Somewhere in Arunachal Pradesh",
+        aspectRatio: 1.5
+      },
+      {
+        src: "./photography/IMG_20240814_225827.jpg",
+        title: "The Night of Independence",
+        description: "Asansol, West Bengal",
+        aspectRatio: 1.1
+      },
+      {
+        src: "./photography/SAVE_20201127_223702.jpg",
+        title: "Resting in Shadows",
+        description: "Macro study of species Insecta",
+        aspectRatio: 1.0
+      },
+      {
+        src: "./photography/IMG_20210327_232547-EDIT.jpg",
+        title: "The Burning Flames",
+        description: "Fire photography experiment",
+        aspectRatio: 0.9
+      },
+      {
+        src: "./photography/IMG_20210905_213211.jpg",
+        title: "নীলাম্বরের ক্ষিদে",
+        description: "Nilaambor er Khide: The Unseen Hunger",
+        aspectRatio: 1.25
+      },
+      {
+        src: "./photography/IMG_20231024_121128.jpg",
+        title: "The River Banks",
+        description: "Arunachal Pradesh",
+        aspectRatio: 1.4
       }
+    ];
 
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+    let currentPhotoIndex = 0;
+    const photosPerLoad = 6;
 
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
-      }
+    // Intersection Observer for lazy loading
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          const placeholder = img.previousElementSibling;
+          
+          img.onload = () => {
+            img.classList.add('loaded');
+            if (placeholder) {
+              placeholder.style.display = 'none';
+            }
+          };
+          
+          img.onerror = () => {
+            if (placeholder) {
+              placeholder.innerHTML = '<div style="color: rgba(255,255,255,0.5);"><i class="fas fa-exclamation-triangle"></i><br>Failed to load</div>';
+            }
+          };
+          
+          img.src = img.dataset.src;
+          imageObserver.unobserve(img);
+        }
+      });
+    }, { threshold: 0.1 });
 
-      draw() {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function init() {
-      particles = [];
-      for (let i = 0; i < 100; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function createPhotoElement(photo) {
+      const photoItem = document.createElement('div');
+      photoItem.className = 'photo-item';
       
-      for (let particle of particles) {
-        particle.update();
-        particle.draw();
-      }
-
-      requestAnimationFrame(animate);
+      const baseHeight = 300;
+      const calculatedHeight = Math.floor(baseHeight / photo.aspectRatio);
+      
+      photoItem.innerHTML = `
+        <div class="photo-placeholder" style="height: ${calculatedHeight}px;">
+          <div class="loading-spinner"></div>
+        </div>
+        <img data-src="${photo.src}" alt="${photo.title}" style="cursor: pointer;" />
+        <div class="photo-overlay">
+          <h3>${photo.title}</h3>
+          <p>${photo.description}</p>
+        </div>
+      `;
+      
+      const img = photoItem.querySelector('img');
+      img.addEventListener('click', () => openModal(photo.src, photo.title));
+      
+      return photoItem;
     }
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    init();
-    animate();
+    function loadPhotos() {
+      const gallery = document.getElementById('photoGallery');
+      const loadBtn = document.getElementById('loadMoreBtn');
+      
+      // Update button state
+      loadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+      loadBtn.disabled = true;
+      
+      // Simulate network delay for better UX
+      setTimeout(() => {
+        const photosToLoad = Math.min(photosPerLoad, photoData.length - currentPhotoIndex);
+        
+        for (let i = 0; i < photosToLoad; i++) {
+          if (currentPhotoIndex < photoData.length) {
+            const photoElement = createPhotoElement(photoData[currentPhotoIndex]);
+            gallery.appendChild(photoElement);
+            
+            // Set up lazy loading
+            const img = photoElement.querySelector('img[data-src]');
+            if (img) {
+              imageObserver.observe(img);
+            }
+            
+            currentPhotoIndex++;
+          }
+        }
+        
+        // Update load more button
+        if (currentPhotoIndex >= photoData.length) {
+          loadBtn.style.display = 'none';
+        } else {
+          loadBtn.innerHTML = '<i class="fas fa-images"></i> Load More Photos';
+          loadBtn.disabled = false;
+        }
+      }, 1000);
+    }
+
+    function openModal(src, title) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      
+      modal.style.display = 'block';
+      modalImg.src = src;
+      modalImg.alt = title;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Event listeners
+    document.getElementById('loadMoreBtn').addEventListener('click', loadPhotos);
+    document.querySelector('.modal-close').addEventListener('click', closeModal);
+    
+    // Close modal on background click
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Particle animation system
+    class ParticleSystem {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.init();
+        this.animate();
+      }
+
+      resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      createParticle() {
+        return {
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          size: Math.random() * 3 + 1,
+          speedX: (Math.random() - 0.5) * 2,
+          speedY: (Math.random() - 0.5) * 2,
+          opacity: Math.random() * 0.5 + 0.1,
+          life: 1
+        };
+      }
+
+      init() {
+        this.resizeCanvas();
+        for (let i = 0; i < 60; i++) {
+          this.particles.push(this.createParticle());
+        }
+      }
+
+      updateParticles() {
+        this.particles.forEach((particle, index) => {
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
+          particle.life -= 0.002;
+
+          if (particle.x > this.canvas.width) particle.x = 0;
+          if (particle.x < 0) particle.x = this.canvas.width;
+          if (particle.y > this.canvas.height) particle.y = 0;
+          if (particle.y < 0) particle.y = this.canvas.height;
+
+          if (particle.life <= 0) {
+            this.particles[index] = this.createParticle();
+          }
+        });
+      }
+
+      drawParticles() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.particles.forEach(particle => {
+          this.ctx.save();
+          this.ctx.globalAlpha = particle.opacity * particle.life;
+          this.ctx.fillStyle = 'white';
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          this.ctx.fill();
+          this.ctx.restore();
+        });
+      }
+
+      animate() {
+        this.updateParticles();
+        this.drawParticles();
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize particle system
+      const canvas = document.querySelector('.particles');
+      const particleSystem = new ParticleSystem(canvas);
+      
+      window.addEventListener('resize', () => {
+        particleSystem.resizeCanvas();
+      });
+      
+      // Load initial photos
+      loadPhotos();
+    });
   </script>
-</body></html>
+</body>
+</html>
