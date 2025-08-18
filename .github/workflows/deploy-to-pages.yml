@@ -22,21 +22,66 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
+  # Build job with optimizations
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Setup Node.js (for potential build tools)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      
+      - name: Optimize HTML files
+        run: |
+          # Install html-minifier for optimization
+          npm install -g html-minifier-terser
+          
+          # Create optimized directory
+          mkdir -p optimized
+          
+          # Copy all files to optimized directory
+          cp -r * optimized/ 2>/dev/null || true
+          
+          # Minify HTML files
+          find optimized -name "*.html" -type f -exec html-minifier-terser \
+            --collapse-whitespace \
+            --remove-comments \
+            --remove-empty-attributes \
+            --remove-redundant-attributes \
+            --use-short-doctype \
+            --minify-css true \
+            --minify-js true \
+            --output {} {} \;
+          
+          echo "✅ HTML optimization complete"
+      
+      - name: Generate site metadata
+        run: |
+          cd optimized
+          
+          # Create a build info file
+          cat > build-info.json << EOF
+          {
+            "buildTime": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "commitSha": "${{ github.sha }}",
+            "branch": "${{ github.ref_name }}",
+            "deploymentPlatform": "github-pages"
+          }
+          EOF
+          
+          echo "✅ Site metadata generated"
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          # Upload optimized version
+          path: 'optimized'
 
   # Deployment job
   deploy:

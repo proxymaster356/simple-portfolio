@@ -1,0 +1,72 @@
+# Azure Container Instances deployment
+apiVersion: '2021-07-01'
+location: eastus
+name: debopam-portfolio-aci
+properties:
+  containers:
+  - name: portfolio
+    properties:
+      image: ghcr.io/proxymaster356/simple-portfolio:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1
+      ports:
+      - port: 80
+        protocol: TCP
+  osType: Linux
+  restartPolicy: Always
+  ipAddress:
+    type: Public
+    ports:
+    - protocol: TCP
+      port: 80
+    dnsNameLabel: debopam-portfolio
+tags:
+  environment: production
+  project: portfolio
+type: Microsoft.ContainerInstance/containerGroups
+
+---
+# Azure Static Web Apps configuration
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "siteName": {
+      "type": "string",
+      "defaultValue": "debopam-portfolio"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "East US 2"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/staticSites",
+      "apiVersion": "2021-01-15",
+      "name": "[parameters('siteName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "repositoryUrl": "https://github.com/proxymaster356/simple-portfolio",
+        "branch": "main",
+        "buildProperties": {
+          "appLocation": "/",
+          "outputLocation": "",
+          "appBuildCommand": "echo 'No build required'"
+        }
+      },
+      "sku": {
+        "name": "Free",
+        "tier": "Free"
+      }
+    }
+  ],
+  "outputs": {
+    "staticWebAppUrl": {
+      "type": "string",
+      "value": "[reference(parameters('siteName')).defaultHostname]"
+    }
+  }
+}

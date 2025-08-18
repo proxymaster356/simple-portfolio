@@ -1,0 +1,78 @@
+# AWS S3 + CloudFront deployment configuration
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Debopam Portfolio - S3 + CloudFront deployment'
+
+Parameters:
+  DomainName:
+    Type: String
+    Default: 'portfolio.debopam.dev'
+    Description: 'Domain name for the portfolio'
+
+Resources:
+  # S3 Bucket for hosting
+  PortfolioS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${DomainName}-portfolio'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: 'index.html'
+        ErrorDocument: 'index.html'
+
+  # S3 Bucket Policy
+  PortfolioS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref PortfolioS3Bucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Sub '${PortfolioS3Bucket}/*'
+
+  # CloudFront Distribution
+  PortfolioCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref DomainName
+        DefaultRootObject: 'index.html'
+        Origins:
+          - Id: S3Origin
+            DomainName: !GetAtt PortfolioS3Bucket.RegionalDomainName
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad  # Managed caching optimized
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: '/index.html'
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: '/index.html'
+        Enabled: true
+        HttpVersion: http2
+        PriceClass: PriceClass_100
+
+Outputs:
+  WebsiteURL:
+    Description: 'Portfolio Website URL'
+    Value: !Sub 'https://${DomainName}'
+  
+  CloudFrontDistributionId:
+    Description: 'CloudFront Distribution ID'
+    Value: !Ref PortfolioCloudFrontDistribution
+  
+  S3BucketName:
+    Description: 'S3 Bucket Name'
+    Value: !Ref PortfolioS3Bucket

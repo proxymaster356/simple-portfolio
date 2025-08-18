@@ -1,6 +1,11 @@
 # Debopam Dutta - Portfolio Website
 
-A modern, responsive portfolio website showcasing personal projects, skills, photography, and achievements.
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-success?style=for-the-badge&logo=github)](https://proxymaster356.github.io/simple-portfolio/)
+[![Docker](https://img.shields.io/badge/Docker-ready-blue?style=for-the-badge&logo=docker)](https://github.com/proxymaster356/simple-portfolio/pkgs/container/simple-portfolio)
+[![Netlify](https://img.shields.io/badge/Netlify-ready-00C7B7?style=for-the-badge&logo=netlify)](https://netlify.com)
+[![Vercel](https://img.shields.io/badge/Vercel-ready-000000?style=for-the-badge&logo=vercel)](https://vercel.com)
+
+A modern, responsive portfolio website showcasing personal projects, skills, photography, and achievements. Now available on multiple cloud platforms for maximum performance and availability.
 
 ## 🌐 Live Website
 
@@ -21,25 +26,47 @@ This portfolio is deployed on GitHub Pages: **[https://proxymaster356.github.io/
   - Research & Publications
   - Events & Posters
 
-## 🚀 Deployment
+## 🚀 Multi-Cloud Deployment
 
-This site is automatically deployed to GitHub Pages using GitHub Actions whenever changes are pushed to the main branch.
+This portfolio supports deployment to multiple cloud platforms for maximum availability and performance.
 
-### Deployment Workflow
+### 🌐 Live Deployments
 
-The site uses a GitHub Actions workflow (`.github/workflows/deploy-to-pages.yml`) that:
+- **GitHub Pages**: [https://proxymaster356.github.io/simple-portfolio/](https://proxymaster356.github.io/simple-portfolio/) ✅
+- **Netlify**: Ready for deployment 🔧
+- **Vercel**: Ready for deployment 🔧
+- **AWS S3**: Ready for deployment 🔧
+- **Google Cloud**: Ready for deployment 🔧
+- **Azure**: Ready for deployment 🔧
 
-1. **Builds** the static site
-2. **Uploads** all files as a Pages artifact
-3. **Deploys** to GitHub Pages environment
+### 🚀 Quick Deploy
 
-### Manual Deployment
+```bash
+# Deploy to GitHub Pages (automatic on push)
+git push origin main
 
-If you need to manually trigger a deployment:
+# Deploy to specific platform
+./scripts/deploy.sh netlify prod
+./scripts/deploy.sh vercel prod
+./scripts/deploy.sh aws prod
 
-1. Go to the "Actions" tab in the GitHub repository
-2. Select "Deploy Static Site to GitHub Pages"
-3. Click "Run workflow"
+# Deploy to all platforms
+./scripts/deploy.sh all prod
+
+# Run locally with Docker
+docker-compose up -d
+```
+
+### 📋 Deployment Features
+
+- **Automated CI/CD**: GitHub Actions workflows for all platforms
+- **Docker Support**: Containerized deployment ready
+- **CDN Integration**: Global content delivery on all platforms
+- **SSL/HTTPS**: Automatic HTTPS on all deployments
+- **Performance Optimization**: HTML minification and asset optimization
+- **Security Headers**: Built-in security configurations
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## 🛠️ Local Development
 
