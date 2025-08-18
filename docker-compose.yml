@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    container_name: debopam-portfolio
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # Mount logs for monitoring
+      - ./logs:/var/log/nginx
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portfolio.rule=Host(`portfolio.localhost`)"
+      - "traefik.http.services.portfolio.loadbalancer.server.port=80"
+    networks:
+      - portfolio-network
+
+  # Optional: Add monitoring
+  nginx-prometheus-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    ports:
+      - "9113:9113"
+    command:
+      - -nginx.scrape-uri=http://portfolio:80/nginx_status
+    depends_on:
+      - portfolio
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local

@@ -1,0 +1,83 @@
+[build]
+  # Build command - since this is a static site, no build needed
+  command = "echo 'Static site - no build required'"
+  
+  # Directory to publish (root directory contains all files)
+  publish = "."
+
+[build.environment]
+  # Node.js version (for any future build processes)
+  NODE_VERSION = "18"
+
+# Redirect rules for clean URLs and SPA-like behavior
+[[redirects]]
+  from = "/skills"
+  to = "/skills-and-expertise.html"
+  status = 301
+
+[[redirects]]
+  from = "/skills-expertise"
+  to = "/skills-and-expertise.html"
+  status = 301
+
+[[redirects]]
+  from = "/certificates"
+  to = "/certificates3.html"
+  status = 301
+
+[[redirects]]
+  from = "/photography"
+  to = "/photographys.html"
+  status = 301
+
+# Handle 404 errors - redirect to home page
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
+
+# Security headers for better performance and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache static assets for better performance
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "*.gif"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"

@@ -1,0 +1,156 @@
+name: Multi-Cloud Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      deploy_github_pages:
+        description: 'Deploy to GitHub Pages'
+        required: false
+        default: 'true'
+        type: boolean
+      deploy_netlify:
+        description: 'Deploy to Netlify'
+        required: false
+        default: 'false'
+        type: boolean
+      deploy_vercel:
+        description: 'Deploy to Vercel'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      deployment-matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          npm install -g html-minifier-terser
+          npm install -g netlify-cli
+          npm install -g vercel
+
+      - name: Optimize and build site
+        run: |
+          # Create build directory
+          mkdir -p build
+          
+          # Copy all files
+          cp -r * build/ 2>/dev/null || true
+          
+          # Remove build directory from itself (avoid recursion)
+          rm -rf build/build 2>/dev/null || true
+          
+          # Minify HTML files
+          find build -name "*.html" -type f -exec html-minifier-terser \
+            --collapse-whitespace \
+            --remove-comments \
+            --remove-empty-attributes \
+            --remove-redundant-attributes \
+            --use-short-doctype \
+            --minify-css true \
+            --minify-js true \
+            --output {} {} \;
+          
+          # Generate deployment manifest
+          cat > build/deployment-info.json << EOF
+          {
+            "buildTime": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "commitSha": "${{ github.sha }}",
+            "branch": "${{ github.ref_name }}",
+            "workflow": "multi-cloud-deployment",
+            "platforms": ["github-pages", "netlify", "vercel"]
+          }
+          EOF
+          
+          echo "✅ Site build and optimization complete"
+
+      - name: Set deployment matrix
+        id: set-matrix
+        run: |
+          MATRIX='["github-pages"]'
+          if [[ "${{ github.event.inputs.deploy_netlify || 'false' }}" == "true" ]]; then
+            MATRIX=$(echo $MATRIX | jq '. += ["netlify"]')
+          fi
+          if [[ "${{ github.event.inputs.deploy_vercel || 'false' }}" == "true" ]]; then
+            MATRIX=$(echo $MATRIX | jq '. += ["vercel"]')
+          fi
+          echo "matrix=$(echo $MATRIX | jq -c .)" >> $GITHUB_OUTPUT
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-build
+          path: build/
+          retention-days: 30
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: ${{ fromJson(needs.build.outputs.deployment-matrix) }}
+      fail-fast: false
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: portfolio-build
+          path: ./
+
+      - name: Deploy to GitHub Pages
+        if: matrix.platform == 'github-pages'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          cname: # Add custom domain if needed
+
+      - name: Deploy to Netlify
+        if: matrix.platform == 'netlify'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npx netlify-cli deploy --prod --dir . --message "Multi-cloud deployment - ${{ github.sha }}"
+
+      - name: Deploy to Vercel
+        if: matrix.platform == 'vercel'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npx vercel --prod --token $VERCEL_TOKEN --yes
+
+  notify:
+    needs: [build, deploy]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Platform | Status | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|--------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| GitHub Pages | ✅ Deployed | https://proxymaster356.github.io/simple-portfolio/ |" >> $GITHUB_STEP_SUMMARY
+          echo "| Netlify | ${{ contains(needs.build.outputs.deployment-matrix, 'netlify') && '✅ Deployed' || '⏭️ Skipped' }} | https://debopam-portfolio.netlify.app |" >> $GITHUB_STEP_SUMMARY
+          echo "| Vercel | ${{ contains(needs.build.outputs.deployment-matrix, 'vercel') && '✅ Deployed' || '⏭️ Skipped' }} | https://debopam-portfolio.vercel.app |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Build Time:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
